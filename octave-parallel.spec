@@ -1,18 +1,22 @@
-%define octpkg parallel
-
-# Exclude .oct files from provides
-%define __provides_exclude_from ^%{octpkglibdir}/.*.oct$
+%global octpkg parallel
 
 Summary:	Parallel execution package for Octave
 Name:		octave-%{octpkg}
-Version:	3.1.1
+Version:	4.0.1
 Release:	1
-Source0:	http://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
+Url:		https://octave.sourceforge.io/%{octpkg}/
+Source0:	https://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
+# https://savannah.gnu.org/bugs/index.php?61516
+Patch0:		honor-cflags-cppflags-cxxflags.patch
+# https://savannah.gnu.org/bugs/index.php?57001
+#Patch1:		fix-namespaces.patch
+#Patch2:		include-iostream.patch
 License:	GPLv3+
 Group:		Sciences/Mathematics
-Url:		https://octave.sourceforge.io/%{octpkg}/
 
 BuildRequires:	octave-devel >= 3.8.0
+BuildRequires:	octave-struct >= 1.0.12
+BuildRequires:	pkgconfig(p11-kit-1)
 
 Requires:	octave(api) = %{octave_api}
 Requires:	octave-struct >= 1.0.12
@@ -25,14 +29,32 @@ Parallel execution package for Octave. See also package octave-mpi.
 
 This package is part of community Octave-Forge collection.
 
+%files
+%license COPYING
+%doc NEWS
+%dir %{octpkglibdir}
+%{octpkglibdir}/*
+%dir %{octpkgdir}
+%{octpkgdir}/*
+%{_metainfodir}/*.metainfo.xml
+
+#---------------------------------------------------------------------------
+
 %prep
-%setup -qcT
+%autosetup -p1 -n %{octpkg}-%{version}
+
+# remove backup files
+#find . -name \*~ -delete
 
 %build
-%octave_pkg_build -T
+%set_build_flags
+%octave_pkg_build
 
 %install
 %octave_pkg_install
+
+%check
+%octave_pkg_check
 
 %post
 %octave_cmd pkg rebuild
@@ -42,12 +64,4 @@ This package is part of community Octave-Forge collection.
 
 %postun
 %octave_cmd pkg rebuild
-
-%files
-%dir %{octpkglibdir}
-%{octpkglibdir}/*
-%dir %{octpkgdir}
-%{octpkgdir}/*
-%doc %{octpkg}-%{version}/NEWS
-%doc %{octpkg}-%{version}/COPYING
 

@@ -1,0 +1,40 @@
+Description: Fix namespaces
+Author: Rafael Laboissiere <rafael@debian.org>
+Forwarded: no
+Last-Update: 2019-10-05
+
+--- octave-parallel-3.1.3.orig/src/pconnect.cc
++++ octave-parallel-3.1.3/src/pconnect.cc
+@@ -533,7 +533,7 @@ sclose (sockets);\n\
+               dcprintf ("hostname %i written (%s)\n", j, hosts(j).c_str ());
+             }
+ 
+-          std::string directory = octave_env::get_current_directory ();
++          std::string directory = octave::sys::env::get_current_directory ();
+ 
+           conn->get_cmd_stream ()->network_send_string (directory.c_str ());
+           dcprintf ("directory written (%s)\n", directory.c_str ());
+--- octave-parallel-3.1.3.orig/src/pserver.cc
++++ octave-parallel-3.1.3/src/pserver.cc
+@@ -169,7 +169,7 @@ reval_loop (octave_parallel_stream &cstr
+           if (octave_completion_matches_called)
+             octave_completion_matches_called = false;
+           else
+-            command_editor::increment_current_command_number ();
++            octave::command_editor::increment_current_command_number ();
+           dsprintf ("reval loop, no error, after caring for Octave command number\n");
+         }
+     }
+@@ -1116,10 +1116,10 @@ the swap device even after shutdown of t
+           OCTAVE__INTERPRETER__SYMBOL_TABLE__ASSIGN ("sockets", sockets);
+           dsprintf ("'sockets' installed\n");
+ 
+-          int cd_ok = octave_env::chdir (directory.c_str ());
++          int cd_ok = octave::sys::env::chdir (directory.c_str ());
+           if (! cd_ok)
+             {
+-            octave_env::chdir ("/tmp");
++            octave::sys::env::chdir ("/tmp");
+             dsprintf ("performed chdir to /tmp\n");
+             }
+           else

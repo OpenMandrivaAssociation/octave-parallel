@@ -1,0 +1,28 @@
+Description: Include necessary iostream header
+Author: Rafael Laboissiere <rafael@debian.org>
+Forwarded: no
+Last-Update: 2019-10-05
+
+--- octave-parallel-3.1.3.orig/src/configure.ac
++++ octave-parallel-3.1.3/src/configure.ac
+@@ -274,8 +274,8 @@ dnl  separate test
+   [octave::mach_info],
+   [[std::cout << octave::mach_info::flt_fmt_unknown;]],
+   [OCTAVE__MACH_INFO],
+-  [],
+-  []
++  [#include <iostream>],
++  [#include <iostream>]
+ ],
+ 
+ [dnl
+--- octave-parallel-3.1.3.orig/src/error-helpers.cc
++++ octave-parallel-3.1.3/src/error-helpers.cc
+@@ -20,6 +20,7 @@ along with this program; If not, see <ht
+ #include <octave/oct.h>
+ 
+ #include "error-helpers.h"
++#include <iostream>
+ 
+ // call verror
+ #ifdef HAVE_OCTAVE_VERROR_ARG_EXC
