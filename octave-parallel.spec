@@ -8,9 +8,8 @@ Url:		https://octave.sourceforge.io/%{octpkg}/
 Source0:	https://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
 # https://savannah.gnu.org/bugs/index.php?61516
 Patch0:		honor-cflags-cppflags-cxxflags.patch
-# https://savannah.gnu.org/bugs/index.php?57001
-#Patch1:		fix-namespaces.patch
-#Patch2:		include-iostream.patch
+# https://savannah.gnu.org/bugs/?62349
+Patch1:		parallel-4.0.1-fix_octave_7.patch
 License:	GPLv3+
 Group:		Sciences/Mathematics
 
