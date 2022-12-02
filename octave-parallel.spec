@@ -4,7 +4,7 @@ Summary:	Parallel execution package for Octave
 Name:		octave-%{octpkg}
 Version:	4.0.1
 Release:	1
-Url:		https://octave.sourceforge.io/%{octpkg}/
+Url:		https://packages.octave.org/%{octpkg}/
 Source0:	https://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
 # https://savannah.gnu.org/bugs/index.php?61516
 Patch0:		honor-cflags-cppflags-cxxflags.patch
@@ -25,8 +25,6 @@ Requires(postun): octave
 
 %description
 Parallel execution package for Octave. See also package octave-mpi.
-
-This package is part of community Octave-Forge collection.
 
 %files
 %license COPYING
