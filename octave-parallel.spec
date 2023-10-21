@@ -2,8 +2,8 @@
 
 Summary:	Parallel execution package for Octave
 Name:		octave-parallel
-Version:	4.0.1
-Release:	2
+Version:	4.0.2
+Release:	1
 License:	GPLv3+
 Group:		Sciences/Mathematics
 Url:		https://packages.octave.org/parallel/
